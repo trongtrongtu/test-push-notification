@@ -9,18 +9,26 @@ import Spinner from 'react-bootstrap/Spinner';
 
 import { toast } from 'react-toastify';
 
-import { onMessageListener } from './firebaseInit';
+import { onMessageListener, requestFirebaseNotificationPermission } from './firebaseInit';
 
 export const Messaging = () => {
-  const [ messages, setMessages ] = React.useState([]);
-  const [ requesting, setRequesting ] = React.useState(false);
+  const [messages, setMessages] = React.useState([]);
+  const [requesting, setRequesting] = React.useState(false);
 
   React.useEffect(() => {
     setRequesting(true);
-    axios.get('/messages').then((resp) => {
-      setMessages(resp.data.messages);
-      setRequesting(false);
-    });
+    requestFirebaseNotificationPermission()
+      .then((firebaseToken) => {
+        // eslint-disable-next-line no-console
+        axios.post('/add-tokens-user', { token: firebaseToken }).then((resp) => {
+          setMessages(resp.data.messages);
+          setRequesting(false);
+        });
+      })
+      .catch((err) => {
+        setRequesting(false);
+        return err;
+      });
   }, []);
 
   onMessageListener()
@@ -43,9 +51,9 @@ export const Messaging = () => {
           axios
             .post('/messages', values)
             .then((resp) => {
-              setMessages(resp.data.messages.concat(messages));
+              // setMessages(resp.data.messages?.concat(messages));
               actions.setSubmitting(false);
-              toast.success('Submitted succesfully');
+              // toast.success('Submitted succesfully');
             })
             .catch((err) => {
               console.log(err);
@@ -107,7 +115,7 @@ export const Messaging = () => {
           </Spinner>
         ) : (
           <>
-            {messages.map((m, index) => {
+            {messages?.map((m, index) => {
               const { name, message } = m;
               return (
                 <div key={index}>

@@ -2,13 +2,14 @@ import firebase from 'firebase/app';
 import 'firebase/messaging';
 
 const config = {
-  apiKey: 'AIzaSyD6n58WMRzrcXxMnDGvzttxk4lqNu0MZbI',
-  authDomain: 'push-notifications-article.firebaseapp.com',
-  databaseURL: 'https://push-notifications-article.firebaseio.com',
-  projectId: 'push-notifications-article',
-  storageBucket: 'push-notifications-article.appspot.com',
-  messagingSenderId: '607164875245',
-  appId: '1:607164875245:web:ac22e68ecfd336b8ad67e4',
+  apiKey: "AIzaSyC4zsqO93M4kL8ks_hMjeBty-MoQBJ4_38",
+  authDomain: "test-event-game.firebaseapp.com",
+  databaseURL: "https://test-event-game-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "test-event-game",
+  storageBucket: "test-event-game.appspot.com",
+  messagingSenderId: "722720962982",
+  appId: "1:722720962982:web:5d68bc3efa9bb7ed1c3767",
+  measurementId: "G-7WH2PE10SP"
 };
 
 firebase.initializeApp(config);
