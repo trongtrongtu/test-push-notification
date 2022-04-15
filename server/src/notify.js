@@ -6,6 +6,7 @@ export const sendNotificationToClient = (tokens, data) => {
   messaging
     .sendMulticast({ tokens, data })
     .then(response => {
+      console.log('response: ', response);
       // Response is an object of the form { responses: [] }
       const successes = response.responses.filter(r => r.success === true)
         .length;
